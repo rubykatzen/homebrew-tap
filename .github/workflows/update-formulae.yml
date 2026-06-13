@@ -2,7 +2,7 @@
 name: Update Formulae
 "on":
   schedule:
-    - cron: "17 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -12,42 +12,24 @@ jobs:
   update:
     runs-on: macos-latest
     env:
-      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Tap repository
-        run: brew tap rubykatzen/tap
-      - name: Configure tap remote
+      - uses: actions/checkout@v6
+      - name: Configure git
         run: |
-          tap_dir="$(brew --repository rubykatzen/tap)"
-          git -C "$tap_dir" config user.name "github-actions[bot]"
-          git -C "$tap_dir" config user.email \
+          git config user.name "github-actions[bot]"
+          git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "$tap_dir" remote set-url origin \
-            "https://x-access-token:${GITHUB_TOKEN}@github.com/rubykatzen/homebrew-tap.git"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update outdated formulae
+        run: python3 bin/update-formulae.py
+      - name: Check formula style
+        run: brew style Formula/*.rb
+      - name: Commit and push changes
         run: |
-          tap_dir="$(brew --repository rubykatzen/tap)"
-          livecheck_json="$(mktemp)"
-          brew livecheck --tap rubykatzen/tap --json > "$livecheck_json"
-          ruby -rjson -e '
-            JSON.parse(File.read(ARGV.fetch(0))).each do |formula|
-              version = formula.dig("version", "latest")
-              next unless formula.dig("version", "outdated")
-              next if version.nil? || version.empty?
-              puts "#{formula.fetch("formula")}\t#{version}"
-            end
-          ' "$livecheck_json" \
-            | while IFS="$(printf '\t')" read -r formula version; do
-            brew bump-formula-pr "rubykatzen/tap/${formula}" \
-              --version "$version" \
-              --write-only \
-              --commit \
-              --no-audit
-          done
-          if git -C "$tap_dir" diff --quiet HEAD; then
+          if git diff --quiet; then
             echo "No formula updates to push."
           else
-            git -C "$tap_dir" push origin HEAD:main
+            git add Formula/*.rb
+            git commit -m "Update Homebrew formulae"
+            git push
           fi
