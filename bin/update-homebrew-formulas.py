@@ -82,14 +82,14 @@ def update_formula(path: Path) -> bool:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "formulae",
+        "formulas",
         nargs="*",
         default=sorted(Path("Formula").glob("*.rb")),
         type=Path,
     )
     args = parser.parse_args()
 
-    for formula in args.formulae:
+    for formula in args.formulas:
         update_formula(formula)
 
     return 0

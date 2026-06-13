@@ -1,5 +1,5 @@
 ---
-name: Update Formulae
+name: Update Homebrew Formulas
 "on":
   schedule:
     - cron: "*/10 * * * *"
@@ -7,7 +7,7 @@ name: Update Formulae
 permissions:
   contents: write
 concurrency:
-  group: update-formulae
+  group: update-homebrew-formulas
 jobs:
   update:
     runs-on: macos-latest
@@ -20,8 +20,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Update outdated formulae
-        run: python3 bin/update-formulae.py
+      - name: Update Homebrew formulas
+        run: python3 bin/update-homebrew-formulas.py
       - name: Check formula style
         run: brew style Formula/*.rb
       - name: Commit and push changes
@@ -30,6 +30,6 @@ jobs:
             echo "No formula updates to push."
           else
             git add Formula/*.rb
-            git commit -m "Update Homebrew formulae"
+            git commit -m "Update Homebrew formulas"
             git push
           fi
