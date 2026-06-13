@@ -2,6 +2,11 @@
 name: Update Homebrew Formulas
 "on":
   workflow_dispatch:
+    inputs:
+      version:
+        description: New version (without v prefix)
+        required: true
+        type: string
 permissions:
   contents: write
 concurrency:
@@ -23,13 +28,14 @@ jobs:
       - name: Bump Homebrew formulas
         run: |
           brew tap rubykatzen/tap "$(pwd)"
-          brew bump-formula-pr --write-only --no-browse rubykatzen/tap/releaser || true
+          brew bump-formula-pr --write-only --no-browse \
+            --version ${{ inputs.version }} rubykatzen/tap/releaser
       - name: Commit and push changes
         run: |
           if git diff --quiet; then
             echo "No formula updates to push."
           else
             git add Formula/*.rb
-            git commit -m "Update Homebrew formulas"
+            git commit -m "releaser: update to v${{ inputs.version }}"
             git push
           fi
