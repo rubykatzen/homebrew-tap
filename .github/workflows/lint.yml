@@ -1,0 +1,13 @@
+name: Lint
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: rubykatzen/baseline/.github/actions/lint-yamllint@v0.0.12
+      - uses: rubykatzen/baseline/.github/actions/lint-pymarkdown@v0.0.12
+      - uses: rubykatzen/baseline/.github/actions/lint-actionlint@v0.0.12
