@@ -1,17 +1,13 @@
 ---
 name: Update Formulae
-
 "on":
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
-
 permissions:
   contents: write
-
 concurrency:
   group: update-formulae
-
 jobs:
   update:
     runs-on: macos-latest
@@ -20,7 +16,6 @@ jobs:
     steps:
       - name: Tap repository
         run: brew tap rubykatzen/tap
-
       - name: Configure tap remote
         run: |
           tap_dir="$(brew --repository rubykatzen/tap)"
@@ -31,19 +26,16 @@ jobs:
             "https://x-access-token:${GITHUB_TOKEN}@github.com/rubykatzen/homebrew-tap.git"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Update outdated formulae
         run: |
           tap_dir="$(brew --repository rubykatzen/tap)"
           livecheck_json="$(mktemp)"
           brew livecheck --tap rubykatzen/tap --json > "$livecheck_json"
-
           ruby -rjson -e '
             JSON.parse(File.read(ARGV.fetch(0))).each do |formula|
               version = formula.dig("version", "latest")
               next unless formula.dig("version", "outdated")
               next if version.nil? || version.empty?
-
               puts "#{formula.fetch("formula")}\t#{version}"
             end
           ' "$livecheck_json" \
@@ -54,7 +46,6 @@ jobs:
               --commit \
               --no-audit
           done
-
           if git -C "$tap_dir" diff --quiet HEAD; then
             echo "No formula updates to push."
           else
