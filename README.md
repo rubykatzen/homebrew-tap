@@ -1,11 +1,11 @@
-# dupmachine/homebrew-tap
+# rubykatzen/homebrew-tap
 
 Homebrew tap for dupmachine command-line tools.
 
 ## Installation
 
 ```bash
-brew tap dupmachine/tap
+brew tap rubykatzen/tap
 brew install releaser
 ```
 
