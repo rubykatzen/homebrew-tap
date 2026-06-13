@@ -8,7 +8,6 @@ name: Update Formulae
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: update-formulae
@@ -25,10 +24,39 @@ jobs:
       - name: Configure tap remote
         run: |
           tap_dir="$(brew --repository rubykatzen/tap)"
+          git -C "$tap_dir" config user.name "github-actions[bot]"
+          git -C "$tap_dir" config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
           git -C "$tap_dir" remote set-url origin \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/rubykatzen/homebrew-tap.git"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Open formula update pull requests
-        run: brew bump --tap rubykatzen/tap --open-pr --no-fork
+      - name: Update outdated formulae
+        run: |
+          tap_dir="$(brew --repository rubykatzen/tap)"
+          livecheck_json="$(mktemp)"
+          brew livecheck --tap rubykatzen/tap --json > "$livecheck_json"
+
+          ruby -rjson -e '
+            JSON.parse(File.read(ARGV.fetch(0))).each do |formula|
+              version = formula.dig("version", "latest")
+              next unless formula.dig("version", "outdated")
+              next if version.nil? || version.empty?
+
+              puts "#{formula.fetch("formula")}\t#{version}"
+            end
+          ' "$livecheck_json" \
+            | while IFS="$(printf '\t')" read -r formula version; do
+            brew bump-formula-pr "rubykatzen/tap/${formula}" \
+              --version "$version" \
+              --write-only \
+              --commit \
+              --no-audit
+          done
+
+          if git -C "$tap_dir" diff --quiet HEAD; then
+            echo "No formula updates to push."
+          else
+            git -C "$tap_dir" push origin HEAD:main
+          fi
