@@ -1,6 +1,6 @@
 # rubykatzen/homebrew-tap
 
-Homebrew tap for dupmachine command-line tools.
+Homebrew tap for Rubykatzen command-line tools.
 
 ## Installation
 
