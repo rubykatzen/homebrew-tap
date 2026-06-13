@@ -7,7 +7,7 @@ name: Update Homebrew Formulas
 permissions:
   contents: write
 concurrency:
-  group: update-homebrew-formulas
+  group: update-formulas
 jobs:
   update:
     runs-on: macos-latest
@@ -21,7 +21,7 @@ jobs:
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Update Homebrew formulas
-        run: python3 bin/update-homebrew-formulas.py
+        run: python3 bin/update-formulas.py
       - name: Check formula style
         run: brew style Formula/*.rb
       - name: Commit and push changes
