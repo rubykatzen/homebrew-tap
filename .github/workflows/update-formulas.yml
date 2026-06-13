@@ -1,8 +1,6 @@
 ---
 name: Update Homebrew Formulas
 "on":
-  schedule:
-    - cron: "*/10 * * * *"
   workflow_dispatch:
 permissions:
   contents: write
@@ -13,6 +11,8 @@ jobs:
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      HOMEBREW_NO_AUTO_UPDATE: "1"
     steps:
       - uses: actions/checkout@v6
       - name: Configure git
@@ -20,10 +20,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Update Homebrew formulas
-        run: python3 bin/update-formulas.py
-      - name: Check formula style
-        run: brew style Formula/*.rb
+      - name: Bump Homebrew formulas
+        run: |
+          brew tap rubykatzen/tap "$(pwd)"
+          brew bump-formula-pr --write-only --no-browse rubykatzen/tap/releaser || true
       - name: Commit and push changes
         run: |
           if git diff --quiet; then
