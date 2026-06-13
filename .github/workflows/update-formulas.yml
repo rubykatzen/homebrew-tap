@@ -16,8 +16,6 @@ jobs:
     runs-on: macos-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      HOMEBREW_NO_AUTO_UPDATE: "1"
     steps:
       - uses: actions/checkout@v6
       - name: Configure git
@@ -27,9 +25,11 @@ jobs:
             "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Bump Homebrew formulas
         run: |
-          brew tap rubykatzen/tap "$(pwd)"
-          brew bump-formula-pr --write-only --no-browse \
-            --version ${{ inputs.version }} rubykatzen/tap/releaser
+          VERSION=${{ inputs.version }}
+          URL="https://github.com/rubykatzen/releaser/archive/refs/tags/v${VERSION}.tar.gz"
+          SHA256=$(curl -fsSL "$URL" | shasum -a 256 | awk '{print $1}')
+          sed -i '' "s|url \".*\"|url \"${URL}\"|" Formula/releaser.rb
+          sed -i '' "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Formula/releaser.rb
       - name: Commit and push changes
         run: |
           if git diff --quiet; then
