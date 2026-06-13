@@ -1,17 +1,10 @@
 # rubykatzen/homebrew-tap
 
-Homebrew tap for Rubykatzen command-line tools.
+Homebrew tap for Rubykatzen tools.
 
 ## Installation
 
 ```bash
 brew tap rubykatzen/tap
 brew trust rubykatzen/tap
-brew install releaser
 ```
-
-## Formulae
-
-| Formula | Description |
-|---|---|
-| `releaser` | Opinionated zero-config release gate for GitHub repositories |

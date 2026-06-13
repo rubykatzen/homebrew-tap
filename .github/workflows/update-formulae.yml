@@ -1,0 +1,34 @@
+---
+name: Update Formulae
+
+"on":
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-formulae
+
+jobs:
+  update:
+    runs-on: macos-latest
+    env:
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Tap repository
+        run: brew tap rubykatzen/tap
+
+      - name: Configure tap remote
+        run: |
+          tap_dir="$(brew --repository rubykatzen/tap)"
+          git -C "$tap_dir" remote set-url origin \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/rubykatzen/homebrew-tap.git"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open formula update pull requests
+        run: brew bump --tap rubykatzen/tap --open-pr --no-fork
