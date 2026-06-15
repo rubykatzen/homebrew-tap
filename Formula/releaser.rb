@@ -3,8 +3,8 @@ class Releaser < Formula
 
   desc "Opinionated zero-config release gate for GitHub repositories"
   homepage "https://github.com/rubykatzen/releaser"
-  url "https://github.com/rubykatzen/releaser/archive/refs/tags/v0.2.2.tar.gz"
-  sha256 "77b5a0d641df06e7c8691925d046b7c06ed3dbe3c2df152e447a4e6117b9103e"
+  url "https://github.com/rubykatzen/releaser/archive/refs/tags/v0.2.3.tar.gz"
+  sha256 "aa1f6896d4748e9df32a14bff7d3f95c4df156f36c2ff15d8e3ef2b8794362f5"
   license "MIT"
 
   livecheck do
