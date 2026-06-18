@@ -78,10 +78,10 @@ jobs:
           EOF
       - name: Commit and push changes
         run: |
-          if git diff --quiet; then
+          git add Formula/*.rb
+          if git diff --cached --quiet; then
             echo "No formula updates to push."
           else
-            git add Formula/*.rb
             git commit -m "${{ inputs.project }}: update to v${{ inputs.version }}"
             git push
           fi
