@@ -21,7 +21,7 @@ concurrency:
 jobs:
   releaser:
     if: inputs.formula == 'releaser'
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.3.5
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.0
     with:
       formula: releaser
       repository: rubykatzen/releaser
@@ -31,7 +31,7 @@ jobs:
       test-match: releaser
   embedder:
     if: inputs.formula == 'embedder'
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.3.5
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.0
     with:
       formula: embedder
       repository: rubykatzen/embedder
