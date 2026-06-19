@@ -1,0 +1,28 @@
+---
+name: Update Homebrew Formulas Compatibility
+"on":
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Project/formula to update
+        required: true
+        type: choice
+        options:
+          - releaser
+          - embedder
+      version:
+        description: Ignored; latest version is resolved with brew livecheck
+        required: false
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: update-homebrew-formula-rubykatzen-${{ inputs.project }}
+  cancel-in-progress: false
+jobs:
+  update:
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.1
+    with:
+      repository: rubykatzen/${{ inputs.project }}
+      formula: ${{ inputs.project }}
+      tap: rubykatzen/tap

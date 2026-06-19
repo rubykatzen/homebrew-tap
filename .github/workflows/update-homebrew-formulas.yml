@@ -3,39 +3,23 @@ name: Update Homebrew Formulas
 "on":
   workflow_dispatch:
     inputs:
+      repository:
+        description: Released repository, e.g. rubykatzen/releaser
+        required: true
+        type: string
       formula:
-        description: Formula to update
-        required: true
-        type: choice
-        options:
-          - releaser
-          - embedder
-      version:
-        description: New version without v prefix
-        required: true
+        description: Formula name override
+        required: false
         type: string
 permissions:
   contents: write
 concurrency:
-  group: update-homebrew-formulas-${{ inputs.formula }}
+  group: update-homebrew-formula-${{ inputs.repository }}
+  cancel-in-progress: false
 jobs:
-  releaser:
-    if: inputs.formula == 'releaser'
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.0
+  update:
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.1
     with:
-      formula: releaser
-      repository: rubykatzen/releaser
-      version: ${{ inputs.version }}
-      class-name: Releaser
-      description: Opinionated zero-config release gate for GitHub repositories
-      test-match: releaser
-  embedder:
-    if: inputs.formula == 'embedder'
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.4.0
-    with:
-      formula: embedder
-      repository: rubykatzen/embedder
-      version: ${{ inputs.version }}
-      class-name: Embedder
-      description: Dependency-style updater for embedded text snippets
-      test-match: embedder
+      repository: ${{ inputs.repository }}
+      formula: ${{ inputs.formula }}
+      tap: rubykatzen/tap
