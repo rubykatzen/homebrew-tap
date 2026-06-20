@@ -2,6 +2,7 @@
 
 This file provides guidance to AI coding agents when working with this repository.
 
+<!-- embedder github.com/rubykatzen/embedder@v0.0.4:message-prefix.md -->
 ## Message Prefix
 
 Prefix every user-visible agent message with the agent emoji followed by the
@@ -20,3 +21,4 @@ Use the emoji to identify the agent:
 
 This applies to chat replies, PR comments, review comments, issue comments,
 status updates, and any other written communication.
+<!-- /embedder -->

@@ -1,0 +1,6 @@
+name: Update embedded fragments
+on:
+  workflow_dispatch:
+jobs:
+  update:
+    uses: rubykatzen/embedder/.github/workflows/update-fragments-shared.yml@main
