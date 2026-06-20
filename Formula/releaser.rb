@@ -1,5 +1,6 @@
 class Releaser < Formula
   include Language::Python::Virtualenv
+
   desc "Opinionated zero-config release gate for GitHub repositories"
   homepage "https://github.com/rubykatzen/releaser"
   url "https://github.com/rubykatzen/releaser/archive/refs/tags/v0.4.1.tar.gz"
