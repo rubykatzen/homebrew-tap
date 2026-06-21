@@ -9,4 +9,4 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@fix/homebrew-formula-path
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.5.2
