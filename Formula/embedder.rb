@@ -3,8 +3,8 @@ class Embedder < Formula
 
   desc "Dependency-style updater for embedded text snippets"
   homepage "https://github.com/rubykatzen/embedder"
-  url "https://github.com/rubykatzen/embedder/archive/refs/tags/v0.0.5.tar.gz"
-  sha256 "53eafdcbd6519d081f4a6d711751e239b63330756a8ccca2007daedeb13b049d"
+  url "https://github.com/rubykatzen/embedder/archive/refs/tags/v0.1.0.tar.gz"
+  sha256 "7c5e892c5a5efa78fd82fb2815d4495b72da730a0de761c29f3f576599672ac2"
   license "MIT"
 
   livecheck do
