@@ -1,7 +1,7 @@
 name: Lint
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "chore/update-formulas"]
   pull_request:
 jobs:
   lint:
