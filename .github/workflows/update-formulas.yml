@@ -4,9 +4,13 @@ name: Update Formulas
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 concurrency:
   group: update-homebrew-formulas
   cancel-in-progress: false
 jobs:
   update:
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.5
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@feat/update-homebrew-pr-options
+    with:
+      auto_merge: true
+      post_push_workflows: lint.yml

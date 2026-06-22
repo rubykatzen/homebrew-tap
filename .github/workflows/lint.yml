@@ -1,8 +1,9 @@
 name: Lint
 on:
   push:
-    branches: ["main", "chore/update-formulas"]
+    branches: ["main"]
   pull_request:
+  workflow_dispatch:
 jobs:
   lint:
     runs-on: ubuntu-latest
