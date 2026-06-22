@@ -1,0 +1,14 @@
+name: setup-runtimes
+description: Install linter runtimes for homebrew-tap lint workflow.
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v6
+      with:
+        python-version: "3.x"
+    - run: python -m pip install yamllint pymarkdownlnt
+      shell: bash
+    - run: |
+        bash <(curl -sL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        sudo install actionlint /usr/local/bin/actionlint
+      shell: bash
