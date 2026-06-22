@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [v0.0.7] - 2026-06-21
+
+- fix: remove trailing whitespace from releaser formula (#37)
+- ci: bump update-formulas shared workflow to v0.5.3 (#36)
+- Update releaser.rb
+- ci: bump update-formulas shared workflow to v0.5.2 (#35)
+- chore: update Homebrew formulas (#34)
+- ci: grant pull-requests write permission for PR creation
+- ci: point update-formulas at fix/homebrew-formula-path for testing
+- ci: bump update-formulas shared workflow to v0.5.1
+- chore: update embedded fragments (#29)
+
 ## [v0.0.6] - 2026-06-21
 
 - ci: grant update-fragments workflow write permissions (#32)
