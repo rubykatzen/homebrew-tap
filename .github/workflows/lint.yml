@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-runtimes
+      - uses: rubykatzen/baseline/.github/actions/setup-runtimes@v0.6.2
+        with:
+          linters: yamllint,pymarkdown,actionlint
       - uses: rubykatzen/baseline/.github/actions/lint-yamllint@v0.6.2
       - uses: rubykatzen/baseline/.github/actions/lint-pymarkdown@v0.6.2
       - uses: rubykatzen/baseline/.github/actions/lint-actionlint@v0.6.2
