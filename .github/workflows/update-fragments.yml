@@ -6,4 +6,4 @@ permissions:
   pull-requests: write
 jobs:
   update:
-    uses: rubykatzen/embedder/.github/workflows/update-fragments-shared.yml@v0.1
+    uses: rubykatzen/embedder/.github/workflows/update-fragments-shared.yml@v0.2
