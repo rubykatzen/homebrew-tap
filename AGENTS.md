@@ -2,7 +2,7 @@
 
 This file provides guidance to AI coding agents when working with this repository.
 
-<!-- embedder github.com/rubykatzen/embedder:fragments/message-prefix.md -->
+<!-- embedder github.com/rubykatzen/embedder@v0.2:fragments/message-prefix.md -->
 ## Message Prefix
 
 Prefix every user-visible agent message with the agent emoji followed by the

@@ -1,4 +1,4 @@
-# embedder github.com/rubykatzen/embedder:fragments/dependabot.yaml
+# embedder github.com/rubykatzen/embedder@v0.2:fragments/dependabot.yaml
 version: 2
 updates:
   - package-ecosystem: github-actions
