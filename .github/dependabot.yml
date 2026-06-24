@@ -1,14 +1,28 @@
+# embedder github.com/rubykatzen/embedder:fragments/dependabot.yaml
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
-      time: "22:00"
+      time: "10:00"
       timezone: "Europe/Berlin"
   - package-ecosystem: pre-commit
     directory: /
     schedule:
       interval: daily
-      time: "22:00"
+      time: "10:00"
       timezone: "Europe/Berlin"
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: daily
+      time: "10:00"
+      timezone: "Europe/Berlin"
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: daily
+      time: "10:00"
+      timezone: "Europe/Berlin"
+# /embedder

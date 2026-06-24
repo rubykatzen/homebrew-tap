@@ -1,9 +1,11 @@
 name: Update embedded fragments
 on:
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
 permissions:
   contents: write
   pull-requests: write
 jobs:
   update:
-    uses: rubykatzen/embedder/.github/workflows/update-fragments-shared.yml@v0.1
+    uses: rubykatzen/embedder/.github/workflows/update-fragments-shared.yml@v0.2
