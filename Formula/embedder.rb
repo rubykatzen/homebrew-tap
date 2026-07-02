@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Embedder < Formula
   include Language::Python::Virtualenv
 
