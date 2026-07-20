@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.5.9
+    uses: rubykatzen/releaser/.github/workflows/update-homebrew-formulas-shared.yml@v0.5.11
     with:
       auto_merge: true
       workflows_dispatch: lint
